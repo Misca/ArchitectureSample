@@ -1,43 +1,35 @@
 package com.misca.data.feature.todo;
 
-import android.content.Context;
-
 import com.misca.data.ToDoRepository;
-import com.misca.data.feature.todo.local.ToDoItemModel;
+import com.misca.data.feature.todo.local.ToDoEntity;
+import com.misca.data.feature.todo.local.ToDoLocalDataStore;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class ToDoRepositoryImpl implements ToDoRepository {
 
-    public ToDoRepositoryImpl(Context context) {
-        //mock repo
+    private ToDoLocalDataStore localDataStore;
+
+    public ToDoRepositoryImpl(ToDoLocalDataStore localDataStore) {
+        this.localDataStore = localDataStore;
     }
 
     @Override
-    public List<ToDoItemModel> getToDos() {
-        //Mock implementation
-        List<ToDoItemModel> items = new ArrayList<>();
-        ToDoItemModel item = new ToDoItemModel();
-        item.isChecked = false;
-        item.taskName = "Some task";
-        items.add(item);
-
-        item = new ToDoItemModel();
-        item.isChecked = false;
-        item.taskName = "Some other task";
-        items.add(item);
-
-        return items;
+    public Single<List<ToDoEntity>> getToDoList() {
+        return localDataStore.getToDoList()
+                .subscribeOn(Schedulers.io());
     }
 
     @Override
-    public void saveToDos(List<ToDoItemModel> toDos) {
-
+    public void saveToDos(List<ToDoEntity> toDoList) {
+        localDataStore.saveToDos(toDoList)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
     }
 
 }

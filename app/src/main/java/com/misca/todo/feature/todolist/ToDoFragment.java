@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.misca.data.ToDoRepository;
-import com.misca.data.feature.todo.ToDoRepositoryImpl;
 import com.misca.todo.databinding.TodoFragmentBinding;
 import com.misca.todo.feature.todolist.model.ToDoViewModel;
 import com.misca.todo.feature.todolist.model.ViewModelFactory;
@@ -24,10 +22,7 @@ public class ToDoFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //for next course
-        ToDoRepository repository = new ToDoRepositoryImpl(getContext().getApplicationContext());
-
-        ViewModelFactory factory = new ViewModelFactory(repository);
+        ViewModelFactory factory = new ViewModelFactory();
         mViewModel = ViewModelProviders.of(this, factory).get(ToDoViewModel.class);
 
         //for those lifecycle callbacks in view model, like ON_CREATE

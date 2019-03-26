@@ -5,8 +5,8 @@ import androidx.databinding.ObservableField;
 
 public class ToDoItemViewModel {
 
-    public ObservableBoolean isChecked;
-    public ObservableField<String> taskName;
+    public final ObservableBoolean isChecked;
+    public final ObservableField<String> taskName;
 
     public ToDoItemViewModel() {
         isChecked = new ObservableBoolean();
