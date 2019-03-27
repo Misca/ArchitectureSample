@@ -9,6 +9,7 @@ import androidx.room.Query;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 
+//TODO 10: And a Dao interface models queries. Models what code Room needs to generate for you
 @Dao
 public interface ToDoDao {
 
