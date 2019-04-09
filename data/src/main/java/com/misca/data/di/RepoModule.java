@@ -26,7 +26,7 @@ public class RepoModule {
 
     ToDoLocalDataStore provideLocalDataStore() {
         ToDoDatabase database = getInstance();
-        return new ToDoLocalDataStore(database.ToDoDao());
+        return new ToDoLocalDataStore(database.toDoDao());
     }
 
     ToDoDatabase getInstance() {

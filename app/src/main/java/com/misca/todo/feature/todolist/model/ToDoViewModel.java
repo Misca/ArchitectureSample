@@ -42,17 +42,16 @@ public class ToDoViewModel extends ViewModel implements LifecycleObserver {
 
         if(items.isEmpty()) {
             repository.getToDoList()
-                    //TODO 4 - check this out: we're using this RxJava operator to map from repository
                     .map(new ItemsToVmMapper())
                     .subscribe(new SingleObserver<List<ToDoItemViewModel>>() {
                         @Override
                         public void onSubscribe(Disposable d) {
-                            //TODO 1: keep the disposable refference in the view model disposable member
+                            disposable = d;
                         }
 
                         @Override
                         public void onSuccess(List<ToDoItemViewModel> toDoItems) {
-                            //TODO 3: we recevied the list from repository; let's call onToDoListReceived here
+                            onToDoListReceived(toDoItems);
                         }
 
                         @Override
@@ -63,10 +62,9 @@ public class ToDoViewModel extends ViewModel implements LifecycleObserver {
         }
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     public void saveToDoList() {
         Log.d(TAG, "saveToDoList()");
-        //TODO 5 - check this out: and we're also using the mapper for saving, this way data and presentation are decoupled
         repository.saveToDos(new ItemsToDataMapper().apply(items));
     }
 
@@ -79,8 +77,7 @@ public class ToDoViewModel extends ViewModel implements LifecycleObserver {
     protected void onCleared() {
         super.onCleared();
         if(disposable != null) {
-            //TODO 2: dispose the disposable, this way we're not going to leak the view model when the system clears it
-
+            disposable.dispose();
         }
     }
 }

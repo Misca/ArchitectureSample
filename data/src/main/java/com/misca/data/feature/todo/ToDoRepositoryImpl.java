@@ -10,7 +10,6 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-//TODO 6: Repository implements the interface and has data stores, in this case just one, a local one
 public class ToDoRepositoryImpl implements ToDoRepository {
 
     private ToDoLocalDataStore localDataStore;
