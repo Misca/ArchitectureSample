@@ -18,6 +18,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.databinding.ObservableArrayList;
 import io.reactivex.Single;
 
 /**
@@ -26,11 +27,11 @@ import io.reactivex.Single;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Log.class)
 public class ToDoViewModelTest {
+
     private ToDoViewModel viewModel;
 
     @Mock
     ToDoRepository repository;
-
 
     @Before
     public void setup() {
@@ -48,5 +49,16 @@ public class ToDoViewModelTest {
         viewModel.fetchToDoList();
 
         Mockito.verify(repository).getToDoList();
+    }
+
+    @Test
+    public void fetchToDoList_whenAlreadyHavingAlist_shouldNotCallFetchList() {
+        Mockito.doReturn(Single.just(new ArrayList<List<ToDoEntity>>()))
+                .when(repository).getToDoList();
+        viewModel.items.add(new ToDoItemViewModel());
+
+        viewModel.fetchToDoList();
+
+        Mockito.verify(repository, Mockito.never()).getToDoList();
     }
 }
