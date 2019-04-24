@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.misca.todo.feature.todolist.model.ToDoPriority" />
+
+        <variable
+            name="viewModel"
+            type="com.misca.todo.feature.todolist.model.ToDoDetailsViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={viewModel.taskName}"
+            tools:text="Some mock text that might go mutiple lines if we give it enough"
+            android:padding="16dp"
+            app:backgroundColor="@{viewModel.priorityColor}"
+            tools:background="@color/colorPriority3"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="right">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="8dp"
+                android:text="@string/details_priority" />
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/colorPriority3"
+                android:onClick="@{() -> viewModel.onPrioritySelected(ToDoPriority.LEVEL_THREE)}"/>
+            <View
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/colorPriority2"
+                android:onClick="@{() -> viewModel.onPrioritySelected(ToDoPriority.LEVEL_TWO)}"/>
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/colorPriority1"
+                android:onClick="@{() -> viewModel.onPrioritySelected(ToDoPriority.LEVEL_ONE)}"/>
+            <View
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/colorPriority0"
+                android:onClick="@{() -> viewModel.onPrioritySelected(ToDoPriority.LEVEL_ZERO)}"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

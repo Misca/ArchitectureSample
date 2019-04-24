@@ -2,6 +2,7 @@ package com.misca.todo.view.bindings;
 
 
 import com.misca.todo.feature.todolist.adapter.ToDoAdapter;
+import com.misca.todo.feature.todolist.listener.ToDoHandler;
 import com.misca.todo.feature.todolist.model.ToDoItemViewModel;
 
 import java.util.List;
@@ -12,15 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerBindings {
 
-    @BindingAdapter({"items"})
-    public static void addFeedItems(RecyclerView recyclerView, List<ToDoItemViewModel> tasks) {
-        if (recyclerView.getAdapter() == null) {
-            ToDoAdapter taskAdapter = new ToDoAdapter();
+    @BindingAdapter({"items", "todoHandler"})
+    public static void addFeedItems(RecyclerView recyclerView, List<ToDoItemViewModel> tasks, ToDoHandler handler) {
+        ToDoAdapter taskAdapter = (ToDoAdapter) recyclerView.getAdapter();
+
+        if (taskAdapter == null) {
+            taskAdapter = new ToDoAdapter();
             recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
             recyclerView.setAdapter(taskAdapter);
         }
 
-        ToDoAdapter adapter = (ToDoAdapter) recyclerView.getAdapter();
-        adapter.setItems(tasks);
+        taskAdapter.setItems(tasks, handler);
     }
 }

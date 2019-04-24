@@ -1,5 +1,6 @@
 package com.misca.data.feature.todo.local;
 
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -7,7 +8,10 @@ import androidx.room.PrimaryKey;
 public class ToDoEntity {
 
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    @Nullable
+    public Integer id;
+
+    public int priority;
 
     public boolean isChecked;
 

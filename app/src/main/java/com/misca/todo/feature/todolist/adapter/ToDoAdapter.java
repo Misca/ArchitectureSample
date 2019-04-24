@@ -4,16 +4,19 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.misca.todo.databinding.TodoItemBinding;
+import com.misca.todo.feature.todolist.listener.ToDoHandler;
 import com.misca.todo.feature.todolist.model.ToDoItemViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.TaskViewHolder> {
 
     private List<ToDoItemViewModel> taskModelList;
+    private ToDoHandler handler;
 
     public ToDoAdapter() {
         this.taskModelList = new ArrayList<>();
@@ -28,8 +31,10 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.TaskViewHolder
     }
 
     @Override
-    public void onBindViewHolder(TaskViewHolder holder, int position) {
-        holder.binding.setViewmodel(taskModelList.get(position));
+    public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
+        holder.binding.setViewModel(taskModelList.get(position));
+        //point all clicks to a single interface for all items
+        holder.binding.setHandler(handler);
     }
 
     @Override
@@ -37,8 +42,9 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.TaskViewHolder
         return taskModelList.size();
     }
 
-    public void setItems(List<ToDoItemViewModel> blogList) {
-        taskModelList = blogList;
+    public void setItems(List<ToDoItemViewModel> items, ToDoHandler handler) {
+        this.handler = handler;
+        this.taskModelList = items;
         notifyDataSetChanged();
     }
 

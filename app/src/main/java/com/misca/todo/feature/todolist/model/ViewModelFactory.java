@@ -16,6 +16,11 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             return (T) new ToDoViewModel(repo);
         }
 
+        if (modelClass.isAssignableFrom(ToDoDetailsViewModel.class)) {
+            ToDoRepository repo = ToDoApplication.getRepoProvider().provideToDoRepository();
+            return (T) new ToDoDetailsViewModel(repo);
+        }
+
         throw new IllegalArgumentException("Unknown ViewModel class");
     }
 }

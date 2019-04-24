@@ -6,11 +6,14 @@ import com.misca.data.feature.todo.local.ToDoLocalDataStore;
 
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class ToDoRepositoryImpl implements ToDoRepository {
+
+    private static final String TAG = ToDoRepositoryImpl.class.getName();
 
     private ToDoLocalDataStore localDataStore;
 
@@ -19,16 +22,26 @@ public class ToDoRepositoryImpl implements ToDoRepository {
     }
 
     @Override
-    public Single<List<ToDoEntity>> getToDoList() {
+    public Flowable<List<ToDoEntity>> getToDoList() {
         return localDataStore.getToDoList()
                 .subscribeOn(Schedulers.io());
     }
 
     @Override
-    public void saveToDos(List<ToDoEntity> toDoList) {
-        localDataStore.saveToDos(toDoList)
-                .subscribeOn(Schedulers.io())
-                .subscribe();
+    public Completable saveToDoItem(ToDoEntity toDo) {
+        return localDataStore.saveItem(toDo)
+                .subscribeOn(Schedulers.io());
     }
 
+    @Override
+    public Completable deleteItem(int itemId) {
+        return localDataStore.deleteToDoItem(itemId)
+                .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Single<ToDoEntity> getToDoItem(int itemId) {
+        return localDataStore.getToDoItem(itemId)
+                .subscribeOn(Schedulers.io());
+    }
 }

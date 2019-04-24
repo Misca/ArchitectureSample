@@ -2,75 +2,85 @@ package com.misca.todo.feature.todolist.model;
 
 import android.util.Log;
 
-import com.misca.data.ToDoRepository;
-import com.misca.todo.feature.todolist.model.mapper.ItemsToDataMapper;
-import com.misca.todo.feature.todolist.model.mapper.ItemsToVmMapper;
-
-import java.util.List;
-
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ViewModel;
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
 
-public class ToDoViewModel extends ViewModel implements LifecycleObserver {
+import com.misca.data.ToDoRepository;
+import com.misca.todo.feature.todolist.listener.ToDoHandler;
+import com.misca.todo.feature.todolist.model.mapper.ItemsToVmMapper;
+
+import java.util.List;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.subjects.PublishSubject;
+
+public class ToDoViewModel extends ViewModel implements LifecycleObserver, ToDoHandler {
 
     private static final String TAG = ToDoViewModel.class.getName();
 
     private ToDoRepository repository;
     private Disposable disposable;
+    public PublishSubject<ToDoEventModel> events;
 
     public ObservableList<ToDoItemViewModel> items;
 
     public ToDoViewModel(ToDoRepository repository) {
         this.repository = repository;
         this.items = new ObservableArrayList<>();
+        this.events = PublishSubject.create();
     }
 
     public void onAddTaskClick() {
         Log.d("ToDoViewModel", "onAddTaskClick");
-        items.add(new ToDoItemViewModel());
+        events.onNext(new ToDoEventModel(ToDoEventModel.EventType.ADD_ITEM));
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void fetchToDoList() {
         Log.d(TAG, "fetchToDoList()");
 
         if(items.isEmpty()) {
-            repository.getToDoList()
+            disposable = repository.getToDoList()
                     .map(new ItemsToVmMapper())
-                    .subscribe(new SingleObserver<List<ToDoItemViewModel>>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-                            disposable = d;
-                        }
-
-                        @Override
-                        public void onSuccess(List<ToDoItemViewModel> toDoItems) {
-                            onToDoListReceived(toDoItems);
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            Log.e(TAG, "fetchToDoList error: ", e);
-                        }
-                    });
+                    .subscribe(
+                            toDoItemViewModels -> onToDoListReceived(toDoItemViewModels),
+                            throwable -> {
+                                Log.e(TAG, "fetchToDoList error: ", throwable);
+                            });
         }
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    public void saveToDoList() {
-        Log.d(TAG, "saveToDoList()");
-        repository.saveToDos(new ItemsToDataMapper().apply(items));
-    }
-
     private void onToDoListReceived(List<ToDoItemViewModel> toDoItems) {
+        Log.d(TAG, "onToDoListReceived " + toDoItems.size() + " items");
         items.clear();
         items.addAll(toDoItems);
+    }
+
+
+    //TODO 2: we now have a handler for item clicks: selected and delete
+    // - inspect the interface
+    // - check how we set it via binding in adapter
+    @Override
+    public void onItemSelected(ToDoItemViewModel item) {
+        events.onNext(new ToDoEventModel(ToDoEventModel.EventType.EDIT_ITEM, item));
+    }
+
+    //TODO 4: call this method, from the item layout, for clicks on close image view
+    //TODO 5: test it out
+    @Override
+    public void onDeleteItemSelected(ToDoItemViewModel item) {
+        repository.deleteItem(item.id).subscribe(
+                () -> {
+                    Log.e(TAG, "onDeleteItemSelected onComplete");
+                },
+                throwable -> {
+                    Log.e(TAG, "onDeleteItemSelected error: ", throwable);
+                }
+        );
     }
 
     @Override
@@ -80,4 +90,5 @@ public class ToDoViewModel extends ViewModel implements LifecycleObserver {
             disposable.dispose();
         }
     }
+
 }

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
-            name="viewmodel"
+            name="handler"
+            type="com.misca.todo.feature.todolist.listener.ToDoHandler" />
+        
+        <variable
+            name="viewModel"
             type="com.misca.todo.feature.todolist.model.ToDoItemViewModel" />
     </data>
 
@@ -14,20 +19,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        app:backgroundColor="@{viewModel.priorityColor}"
+        tools:background="@color/colorPriority3"
         tools:context=".presentation.todo.ToDoFragment">
 
         <CheckBox
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="@={viewmodel.isChecked}"
+            android:checked="@={viewModel.isChecked}"
+            android:layout_gravity="center_vertical"
             />
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@={viewmodel.taskName}"
+            android:text="@{viewModel.taskName}"
+            android:padding="8dp"
+            android:layout_weight="1"
+            android:onClickListener="@{() -> handler.onItemSelected(viewModel)}"
             tools:text="Some text that might be quite long; using tools for layout properties is just for preview" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close_black_24dp"
+            android:layout_gravity="center_vertical"
+            android:padding="4dp"
+            android:layout_marginRight="4dp"
+
+            />
     </LinearLayout>
 </layout>
