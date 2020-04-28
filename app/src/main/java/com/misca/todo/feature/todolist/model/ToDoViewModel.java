@@ -26,7 +26,7 @@ public class ToDoViewModel extends ViewModel implements LifecycleObserver, ToDoH
     private Disposable disposable;
     public PublishSubject<ToDoEventModel> events;
 
-    public ObservableList<ToDoItemViewModel> items;
+    public final ObservableList<ToDoItemViewModel> items;
 
     public ToDoViewModel(ToDoRepository repository) {
         this.repository = repository;
@@ -61,7 +61,7 @@ public class ToDoViewModel extends ViewModel implements LifecycleObserver, ToDoH
     }
 
 
-    //TODO 2: we now have a handler for item clicks: selected and delete
+    //TODO 2: we now have a handler for item clicks: for the selected and deleted item
     // - inspect the interface
     // - check how we set it via binding in adapter
     @Override
@@ -69,7 +69,7 @@ public class ToDoViewModel extends ViewModel implements LifecycleObserver, ToDoH
         events.onNext(new ToDoEventModel(ToDoEventModel.EventType.EDIT_ITEM, item));
     }
 
-    //TODO 4: call this method, from the item layout, for clicks on close image view
+    //TODO 4: call this method, from the item layout, for clicks on close imageView
     //TODO 5: test it out
     @Override
     public void onDeleteItemSelected(ToDoItemViewModel item) {

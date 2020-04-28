@@ -1,4 +1,4 @@
-package com.misca.todo.feature.todolist;
+package com.misca.todo.feature.edittodo.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.misca.todo.databinding.TodoDetailsFragmentBinding;
-import com.misca.todo.feature.todolist.model.ToDoDetailsViewModel;
+import com.misca.todo.feature.edittodo.model.ToDoDetailsViewModel;
 import com.misca.todo.feature.todolist.model.ViewModelFactory;
 
 public class ToDoDetailFragment extends Fragment {

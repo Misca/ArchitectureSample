@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:tag="ToDoFragment"
-            android:name="com.misca.todo.feature.todolist.ToDoListFragment"/>
+            android:name="com.misca.todo.feature.todolist.fragment.ToDoListFragment"/>
     </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.misca.todo.R;
-import com.misca.todo.feature.todolist.ToDoDetailFragment;
+import com.misca.todo.feature.edittodo.fragment.ToDoDetailFragment;
 import com.misca.todo.feature.todolist.model.ToDoEventModel;
 import com.misca.todo.feature.todolist.model.ToDoItemViewModel;
 

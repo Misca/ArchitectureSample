@@ -2,6 +2,7 @@ package com.misca.todo.feature.todolist.model;
 
 import com.misca.data.ToDoRepository;
 import com.misca.todo.ToDoApplication;
+import com.misca.todo.feature.edittodo.model.ToDoDetailsViewModel;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;

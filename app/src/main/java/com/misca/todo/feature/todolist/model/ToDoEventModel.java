@@ -24,7 +24,6 @@ public class ToDoEventModel {
             EventType.ADD_ITEM
     })
     public @interface EventType {
-
         int EDIT_ITEM = 1;
         int ADD_ITEM = 2;
     }

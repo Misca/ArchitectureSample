@@ -37,16 +37,16 @@ public class ItemsToVmMapper implements Function<List<ToDoEntity>, List<ToDoItem
             viewModelItem.id = dataItem.id;
 
             switch (dataItem.priority) {
-                case ToDoPriority.LEVEL_ZERO:
+                case 0:
                     viewModelItem.priorityColor = R.color.colorPriority0;
                     break;
-                case ToDoPriority.LEVEL_ONE:
+                case 1:
                     viewModelItem.priorityColor = R.color.colorPriority1;
                     break;
-                case ToDoPriority.LEVEL_TWO:
+                case 2:
                     viewModelItem.priorityColor = R.color.colorPriority2;
                     break;
-                case ToDoPriority.LEVEL_THREE:
+                case 3:
                     viewModelItem.priorityColor = R.color.colorPriority3;
                     break;
             }

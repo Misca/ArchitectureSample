@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.misca.todo.feature.todolist.model.ToDoDetailsViewModel" />
+            type="com.misca.todo.feature.edittodo.model.ToDoDetailsViewModel" />
     </data>
 
     <LinearLayout

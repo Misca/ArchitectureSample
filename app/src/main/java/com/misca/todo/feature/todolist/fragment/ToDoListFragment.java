@@ -1,4 +1,4 @@
-package com.misca.todo.feature.todolist;
+package com.misca.todo.feature.todolist.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
