@@ -16,7 +16,7 @@ public class ToDoRepositoryImpl implements ToDoRepository {
 
     private static final String TAG = ToDoRepositoryImpl.class.getName();
 
-    private ToDoLocalDataStore localDataStore;
+    private final ToDoLocalDataStore localDataStore;
 
     public ToDoRepositoryImpl(ToDoLocalDataStore localDataStore) {
         this.localDataStore = localDataStore;
