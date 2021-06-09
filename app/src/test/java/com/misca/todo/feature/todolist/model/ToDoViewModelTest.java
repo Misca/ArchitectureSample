@@ -8,6 +8,7 @@ import com.misca.data.feature.todo.local.ToDoEntity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -18,8 +19,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.databinding.ObservableArrayList;
-import io.reactivex.Single;
+import io.reactivex.Completable;
+import io.reactivex.Flowable;
 
 /**
  * Created by mihaimecea on 09.April.2019
@@ -43,8 +44,8 @@ public class ToDoViewModelTest {
 
     @Test
     public void fetchToDoList_whenOnCreate_shouldCallGetToDosOnRepo() {
-        Mockito.doReturn(Single.just(new ArrayList<List<ToDoEntity>>()))
-                .when(repository).getToDoList();
+        Mockito.doReturn(Flowable.just(new ArrayList<List<ToDoEntity>>()))
+               .when(repository).getToDoList();
 
         viewModel.fetchToDoList();
 
@@ -53,12 +54,23 @@ public class ToDoViewModelTest {
 
     @Test
     public void fetchToDoList_whenAlreadyHavingAlist_shouldNotCallFetchList() {
-        Mockito.doReturn(Single.just(new ArrayList<List<ToDoEntity>>()))
-                .when(repository).getToDoList();
+        Mockito.doReturn(Flowable.just(new ArrayList<List<ToDoEntity>>()))
+               .when(repository).getToDoList();
         viewModel.items.add(new ToDoItemViewModel());
 
         viewModel.fetchToDoList();
 
         Mockito.verify(repository, Mockito.never()).getToDoList();
+    }
+
+    @Test
+    public void whenOnDeleteItemSelected_withItem_shouldCallRepository() {
+        ToDoItemViewModel someItem = new ToDoItemViewModel();
+        someItem.id = 3;
+        PowerMockito.when(repository.deleteItem(ArgumentMatchers.anyInt())).thenReturn(Completable.complete());
+
+        viewModel.onDeleteItemSelected(someItem);
+
+        Mockito.verify(repository).deleteItem(someItem.id);
     }
 }

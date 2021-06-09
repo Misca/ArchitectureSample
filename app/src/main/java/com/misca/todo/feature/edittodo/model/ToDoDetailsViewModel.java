@@ -5,9 +5,9 @@ import android.util.Log;
 
 import com.misca.data.ToDoRepository;
 import com.misca.todo.R;
-import com.misca.todo.feature.todolist.model.ToDoPriority;
 import com.misca.todo.feature.edittodo.mapper.EntityToDetailsVMMapper;
 import com.misca.todo.feature.edittodo.mapper.ItemDetailToDataMapper;
+import com.misca.todo.feature.todolist.model.ToDoPriority;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.ObservableField;
@@ -75,13 +75,13 @@ public class ToDoDetailsViewModel extends ViewModel implements LifecycleObserver
                 priorityColor.set(R.color.colorPriority0);
                 break;
             case LEVEL_ONE:
-
+                priorityColor.set(R.color.colorPriority1);
                 break;
             case LEVEL_TWO:
-
+                priorityColor.set(R.color.colorPriority2);
                 break;
             case LEVEL_THREE:
-
+                priorityColor.set(R.color.colorPriority3);
                 break;
         }
     }
