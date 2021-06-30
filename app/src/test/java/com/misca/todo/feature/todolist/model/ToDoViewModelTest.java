@@ -64,7 +64,7 @@ public class ToDoViewModelTest {
     }
 
     @Test
-    public void whenOnDeleteItemSelected_withItem_shouldCallRepository() {
+    public void onDeleteItemSelected_withItem_shouldCallRepository() {
         ToDoItemViewModel someItem = new ToDoItemViewModel();
         someItem.id = 3;
         PowerMockito.when(repository.deleteItem(ArgumentMatchers.anyInt())).thenReturn(Completable.complete());
