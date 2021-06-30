@@ -12,7 +12,7 @@ import androidx.room.Room;
 
 public class RepoModule {
 
-    private Context context;
+    private final Context context;
 
     private volatile ToDoDatabase database;
 
@@ -33,9 +33,9 @@ public class RepoModule {
         if (database == null) {
             synchronized (ToDoDatabase.class) {
                 if (database == null) {
-                    database = Room.databaseBuilder(context.getApplicationContext(),
-                            ToDoDatabase.class, "Sample.db")
-                            .build();
+                    database = Room.databaseBuilder(context,
+                                                    ToDoDatabase.class, "Sample.db")
+                                   .build();
                 }
             }
         }

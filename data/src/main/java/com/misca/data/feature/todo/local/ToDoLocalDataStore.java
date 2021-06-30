@@ -8,7 +8,7 @@ import io.reactivex.Single;
 
 public class ToDoLocalDataStore {
 
-    private ToDoDao dao;
+    private final ToDoDao dao;
 
     public ToDoLocalDataStore(ToDoDao dao) {
         this.dao = dao;
@@ -30,7 +30,7 @@ public class ToDoLocalDataStore {
         if(toDo.id == null) {
             return dao.insertToDo(toDo);
         } else {
-            return dao.updateProfile(toDo.taskName, toDo.priority, toDo.id);
+            return dao.updatePriority(toDo.taskName, toDo.priority, toDo.id);
         }
     }
 

@@ -32,6 +32,6 @@ public interface ToDoDao {
     Completable insertToDo(ToDoEntity todo);
 
     @Query("UPDATE todos SET taskName = :taskName, priority = :priority where id=:id")
-    Completable updateProfile(String taskName, int priority, int id);
+    Completable updatePriority(String taskName, int priority, int id);
 
 }
