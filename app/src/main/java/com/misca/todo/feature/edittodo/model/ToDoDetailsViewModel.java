@@ -75,10 +75,8 @@ public class ToDoDetailsViewModel extends ViewModel implements LifecycleObserver
                 priorityColor.set(R.color.colorPriority0);
                 break;
             case LEVEL_ONE:
-                priorityColor.set(R.color.colorPriority1);
                 break;
             case LEVEL_TWO:
-                priorityColor.set(R.color.colorPriority2);
                 break;
             case LEVEL_THREE:
                 break;
