@@ -18,11 +18,11 @@ public class RecyclerBindings {
         ToDoAdapter taskAdapter = (ToDoAdapter) recyclerView.getAdapter();
 
         if (taskAdapter == null) {
-            taskAdapter = new ToDoAdapter();
+            taskAdapter = new ToDoAdapter(handler);
             recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
             recyclerView.setAdapter(taskAdapter);
         }
 
-        taskAdapter.setItems(tasks, handler);
+        taskAdapter.setItems(tasks);
     }
 }

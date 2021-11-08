@@ -16,16 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.TaskViewHolder> {
 
     private List<ToDoItemViewModel> taskModelList;
-    private ToDoHandler handler;
+    private final ToDoHandler handler;
 
-    public ToDoAdapter() {
+    public ToDoAdapter(ToDoHandler handler) {
+        this.handler = handler;
         this.taskModelList = new ArrayList<>();
     }
 
     @Override
     public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         TodoItemBinding binder = TodoItemBinding.inflate(LayoutInflater.from(parent.getContext()),
-                parent, false);
+                                                         parent, false);
 
         return new TaskViewHolder(binder);
     }
@@ -42,14 +43,12 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.TaskViewHolder
         return taskModelList.size();
     }
 
-    public void setItems(List<ToDoItemViewModel> items, ToDoHandler handler) {
-        this.handler = handler;
+    public void setItems(List<ToDoItemViewModel> items) {
         this.taskModelList = items;
         notifyDataSetChanged();
     }
 
-
-    public class TaskViewHolder extends RecyclerView.ViewHolder {
+    public static class TaskViewHolder extends RecyclerView.ViewHolder {
         final TodoItemBinding binding;
 
         public TaskViewHolder(TodoItemBinding binding) {

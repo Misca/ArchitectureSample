@@ -24,8 +24,8 @@ public class ToDoViewModel extends ViewModel implements LifecycleObserver, ToDoH
 
     private final ToDoRepository repository;
     private Disposable disposable;
-    public PublishSubject<ToDoEventModel> events;
 
+    public final PublishSubject<ToDoEventModel> events;
     public final ObservableList<ToDoItemViewModel> items;
 
     public ToDoViewModel(ToDoRepository repository) {
