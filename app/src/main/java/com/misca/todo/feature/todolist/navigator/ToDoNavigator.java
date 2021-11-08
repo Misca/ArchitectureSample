@@ -2,20 +2,20 @@ package com.misca.todo.feature.todolist.navigator;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.misca.todo.R;
 import com.misca.todo.feature.edittodo.fragment.ToDoDetailFragment;
 import com.misca.todo.feature.todolist.model.ToDoEventModel;
 import com.misca.todo.feature.todolist.model.ToDoItemViewModel;
+
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * Created by mihaimecea on 22.April.2019
  */
 public class ToDoNavigator {
 
-    private FragmentManager fragmentManager;
+    private final FragmentManager fragmentManager;
 
     public ToDoNavigator(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
@@ -23,10 +23,10 @@ public class ToDoNavigator {
 
     public void onToDoEvent(ToDoEventModel toDoEventModel) {
         switch (toDoEventModel.eventType) {
-            case ToDoEventModel.EventType.EDIT_ITEM:
+            case EDIT_ITEM:
                 openToDoEditDetailScreen(toDoEventModel.item);
                 break;
-            case ToDoEventModel.EventType.ADD_ITEM:
+            case ADD_ITEM:
                 openToDoAddDetailScreen();
                 break;
         }

@@ -21,7 +21,7 @@ public class ToDoDetailsViewModel extends ViewModel implements LifecycleObserver
 
     private static final String TAG = ToDoDetailsViewModel.class.getName();
 
-    private ToDoRepository repository;
+    private final ToDoRepository repository;
 
     @Nullable
     public Integer todoItemId;

@@ -12,7 +12,7 @@ import com.misca.todo.feature.todolist.model.ViewModelFactory;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 public class ToDoListFragment extends Fragment {
 
@@ -23,7 +23,7 @@ public class ToDoListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         ViewModelFactory factory = new ViewModelFactory();
-        viewModel = ViewModelProviders.of(requireActivity(), factory).get(ToDoViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity(), factory).get(ToDoViewModel.class);
 
         //for those lifecycle callbacks in view model, like ON_CREATE
         getLifecycle().addObserver(viewModel);

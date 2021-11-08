@@ -5,14 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.misca.todo.databinding.TodoDetailsFragmentBinding;
 import com.misca.todo.feature.edittodo.model.ToDoDetailsViewModel;
 import com.misca.todo.feature.todolist.model.ViewModelFactory;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 public class ToDoDetailFragment extends Fragment {
 
@@ -24,7 +24,7 @@ public class ToDoDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         ViewModelFactory factory = new ViewModelFactory();
-        viewModel = ViewModelProviders.of(this, factory).get(ToDoDetailsViewModel.class);
+        viewModel = new ViewModelProvider(this, factory).get(ToDoDetailsViewModel.class);
 
         if (getArguments() != null && getArguments().containsKey(EXTRA_TODO_ITEM_ID)) {
             viewModel.initToDoItem(getArguments().getInt(EXTRA_TODO_ITEM_ID));
