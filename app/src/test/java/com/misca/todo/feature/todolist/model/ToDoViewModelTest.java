@@ -3,7 +3,6 @@ package com.misca.todo.feature.todolist.model;
 import android.util.Log;
 
 import com.misca.data.ToDoRepository;
-import com.misca.data.feature.todo.local.ToDoEntity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +16,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
@@ -36,7 +34,7 @@ public class ToDoViewModelTest {
 
     @Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         PowerMockito.mockStatic(Log.class);
 
         viewModel = new ToDoViewModel(repository);
@@ -44,8 +42,7 @@ public class ToDoViewModelTest {
 
     @Test
     public void fetchToDoList_whenOnCreate_shouldCallGetToDosOnRepo() {
-        Mockito.doReturn(Flowable.just(new ArrayList<List<ToDoEntity>>()))
-               .when(repository).getToDoList();
+        Mockito.when(repository.getToDoList()).thenReturn(Flowable.just(new ArrayList<>()));
 
         viewModel.fetchToDoList();
 
@@ -54,8 +51,7 @@ public class ToDoViewModelTest {
 
     @Test
     public void fetchToDoList_whenAlreadyHavingAlist_shouldNotCallFetchList() {
-        Mockito.doReturn(Flowable.just(new ArrayList<List<ToDoEntity>>()))
-               .when(repository).getToDoList();
+        Mockito.when(repository.getToDoList()).thenReturn(Flowable.just(new ArrayList<>()));
         viewModel.items.add(new ToDoItemViewModel());
 
         viewModel.fetchToDoList();

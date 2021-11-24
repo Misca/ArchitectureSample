@@ -14,8 +14,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ToDoRepositoryImpl implements ToDoRepository {
 
-    private static final String TAG = ToDoRepositoryImpl.class.getName();
-
     private final ToDoLocalDataStore localDataStore;
 
     public ToDoRepositoryImpl(ToDoLocalDataStore localDataStore) {
